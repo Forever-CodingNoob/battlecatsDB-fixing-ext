@@ -1,0 +1,1 @@
+trans=lambda word:print("".join([("\\u"+j[2:]) for j in map(lambda x:hex(ord(x)),[i for i in word])]))

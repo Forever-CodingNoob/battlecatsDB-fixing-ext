@@ -1,0 +1,14 @@
+{
+    "name": "Battle Cats DB zh_fix",
+    "description": "fix calculation problem",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": ["tabs"],
+    "host_permissions": ["*://*.battlecats-db.com/*"],
+    "content_scripts": [
+      {
+        "matches": ["*://battlecats-db.com/*"],
+        "js": ["thirdParty/jquery-3.4.1.min.js", "fix.js"]
+      }
+    ]
+  }
