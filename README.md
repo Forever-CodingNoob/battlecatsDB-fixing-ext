@@ -2,3 +2,4 @@
 ## installation
 1. download `*.crx` and `*.pem` files
 2. install this extension by opening `*.crx` file
+
