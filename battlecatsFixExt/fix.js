@@ -1,4 +1,5 @@
 //TODO: fix the wrong calculation of bahamut and metal cat, which is due to that stupid google translation
+//TODO: remove the original click event listeners of elements that label cats' level 
 
 console.log('jizz!');
 $(document).find('script[src="../script/unit_Customize_status.js"]').remove(); //useless removal
@@ -180,7 +181,7 @@ $(document).find('script[src="../script/unit_Customize_status.js"]').remove(); /
         var b = !1;
         return function() {
             if (!b) {
-                console.log('start typing');
+                // console.log('start typing');
                 var a = $("font.c06").index(this)
                     , c = $("<input class='custom1'>").attr("type", "text").val($(this).text());
                 $(this).html(c);
@@ -444,19 +445,56 @@ $(document).find('script[src="../script/unit_Customize_status.js"]').remove(); /
         $("font.c30").eq(b).removeAttr("class").addClass("c30 LL").text((a / 30).toFixed(2) + "\u79d2")) : ($("font.c20").eq(b).removeAttr("class").addClass("c20").text(a),
         $("font.c30").eq(b).removeAttr("class").addClass("c30").text((a / 30).toFixed(2) + "\u79d2"))
     }
+
+
+
+    function override_calc_func(cancel_override=false){
+        if(!cancel_override){
+            $("#allLv").on("click",E());
+            $("#allPlus").on("click",F());
+            $("font.c05").on("click",G());
+            $("font.c06").on("click",H());
+            $("#takaraH").on("click",I());
+            $("#takaraA").on("click",J());
+            $("#takaraS").on("click",K());
+            $("#kenkyuLv").on("click",C());
+            $("#kenkyuPlus").on("click",D());
+            $("#cost").on("click",B());
+            console.log('adding accurate-calculating funciton finished!');
+        }else{
+            $("#allLv").off("click");
+            $("#allPlus").off("click");
+            $("font.c05").off("click");
+            $("font.c06").off("click");
+            $("#takaraH").off("click");
+            $("#takaraA").off("click");
+            $("#takaraS").off("click");
+            $("#kenkyuLv").off("click");
+            $("#kenkyuPlus").off("click");
+            $("#cost").off("click");
+            console.log('removing accurate-calculating funciton finished!');
+        }
+
+        
+    }
+
+
     $(document).ready(function() {
-        $("#allLv").click(E());
-        $("#allPlus").click(F());
-        $("font.c05").click(G());
-        $("font.c06").click(H());
-        $("#takaraH").click(I());
-        $("#takaraA").click(J());
-        $("#takaraS").click(K());
-        $("#kenkyuLv").click(C());
-        $("#kenkyuPlus").click(D());
-        $("#cost").click(B())
-    })
+        var observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+              if (mutation.type == "attributes") {
+                var language=$(mutation.target).attr('lang');
+                console.log(`language has been changed to: ${language}`);
+                override_calc_func(cancel_override=(language!="zh-TW"));
+              }
+            });
+        });
+        observer.observe(
+            document.querySelector("html"),
+            {attributes: true}
+        );
+            
+    });
 }
 )(document);
 //ends here
-console.log('override finished!');
